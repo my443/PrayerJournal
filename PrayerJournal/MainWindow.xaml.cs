@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,10 +17,22 @@ namespace PrayerJournal
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        private ObservableCollection<PrayerItem> _items = new ObservableCollection<PrayerItem>();
         public MainWindow()
         {
             InitializeComponent();
+            
+            makeList();
+            listboxCurrentItems.ItemsSource = _items;
+            
+        }
+
+        private void makeList() { 
+            PrayerItem item = new PrayerItem();
+            item.Summary = "Pray that this software has an impact";
+            item.Description = "I pray this software would have an impact.";
+            item.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
+            _items.Add(item);
         }
     }
 }
