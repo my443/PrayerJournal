@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrayerJournal", "PrayerJournal\PrayerJournal.csproj", "{2AA19BF9-3EC2-4DA3-B6EF-634FFCFA3C4E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AA19BF9-3EC2-4DA3-B6EF-634FFCFA3C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA19BF9-3EC2-4DA3-B6EF-634FFCFA3C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AA19BF9-3EC2-4DA3-B6EF-634FFCFA3C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AA19BF9-3EC2-4DA3-B6EF-634FFCFA3C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9532D0C6-7D6A-4FB3-8D3C-500BA0DB7977}
+	EndGlobalSection
+EndGlobal
