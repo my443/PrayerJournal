@@ -17,14 +17,18 @@ namespace PrayerJournal
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<PrayerItem> _items = new ObservableCollection<PrayerItem>();
+        public ObservableCollection<PrayerItem> _currentItems = new ObservableCollection<PrayerItem>();
+        public ObservableCollection<PrayerItem> _historyItems = new ObservableCollection<PrayerItem>();
         public MainWindow()
         {
             InitializeComponent();
+            _currentItems = new PrayerItemList().GetCurrentItems();
+            _historyItems = new PrayerItemList().GetHistoryItems();
+            
+            listboxCurrentItems.ItemsSource = _currentItems;
+            listboxHistoryItems.ItemsSource = _historyItems;
             
             makeList();
-            listboxCurrentItems.ItemsSource = _items;
-            
         }
 
         private void makeList() { 
@@ -32,7 +36,7 @@ namespace PrayerJournal
             item.Summary = "Pray that this software has an impact";
             item.Description = "I pray this software would have an impact.";
             item.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
-            _items.Add(item);
+            _currentItems.Add(item);
         }
     }
 }

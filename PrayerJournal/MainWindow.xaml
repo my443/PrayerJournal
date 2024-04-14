@@ -37,7 +37,7 @@
             <TabItem Header="Current">
                 <Grid Background="#FFE5E5E5">
 
-                    <ListBox x:Name="listboxCurrentItems" d:ItemsSource="{d:SampleData ItemCount=5}" Width="801">
+                    <ListBox x:Name="listboxCurrentItems"  Width="801">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -55,8 +55,19 @@
             </TabItem>
             <TabItem Header="History">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="listboxHistoryItems" d:ItemsSource="{d:SampleData ItemCount=5}" Width="801">
-
+                    <ListBox x:Name="listboxHistoryItems" Width="801">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                            <Binding Path="Summary" />
+                                            <Binding Path="CreatedDate" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </TabItem>
@@ -68,8 +79,8 @@
                       Width="5" 
                       Grid.RowSpan="3"
                       Grid.Row="1"/>
-<TextBox x:Name ="Summary" Grid.Row="1" Grid.Column="2" FontSize="18"/>
-        <TextBox x:Name="Description" 
+<TextBox x:Name ="textboxSummary" Grid.Row="1" Grid.Column="2" FontSize="18"/>
+        <TextBox x:Name="textboxDescription" 
                  AcceptsReturn="True" 
                  AcceptsTab="True" 
                  HorizontalAlignment="Stretch" 
