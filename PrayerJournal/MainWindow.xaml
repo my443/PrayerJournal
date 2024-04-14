@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <ToolBarTray Grid.ColumnSpan="3" Grid.Column="0">
             <ToolBar>
-                <Button x:Name="Add" BorderBrush="#FF390A0A">
+                <Button x:Name="Add" BorderBrush="#FF390A0A" Click="Add_Click">
                     <Label>Add Item</Label>
                 </Button>
                 <Button x:Name="Save" BorderBrush="#FF390A0A">

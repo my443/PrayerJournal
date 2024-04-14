@@ -27,10 +27,9 @@ namespace PrayerJournal
             
             listboxCurrentItems.ItemsSource = _currentItems;
             listboxHistoryItems.ItemsSource = _historyItems;
-
-            initialUIConfiguration();
-            
+                        
             makeList();
+            initialUIConfiguration();
         }
 
         private void initialUIConfiguration() { 
@@ -73,6 +72,14 @@ namespace PrayerJournal
             bindingDescription.Path = new PropertyPath("SelectedItem.Description");
             textboxDescription.SetBinding(TextBox.TextProperty, bindingDescription);
 
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            PrayerItem prayerItem = new PrayerItem();
+            _currentItems.Add(prayerItem);
+            listboxCurrentItems.SelectedIndex = _currentItems.Count - 1;
+            listboxCurrentItems.SelectedItem = prayerItem;
         }
     }
 }

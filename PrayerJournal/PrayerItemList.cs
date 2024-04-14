@@ -27,6 +27,11 @@ namespace PrayerJournal
             return HistoryItems;
         }
 
+        public void AddItemToCurrentItems(PrayerItem item)
+        {
+            CurrentItems.Add(item);
+        }
+
         private void generateSample(int countForCurrent, int countForHistory) { 
             for (int i=0; i<countForCurrent;i++) { 
                 PrayerItem item = new PrayerItem { Summary = "Pray", Description="For this to make an impact"};
@@ -35,6 +40,7 @@ namespace PrayerJournal
             for (int i = 0; i < countForHistory; i++)
             {
                 PrayerItem item = new PrayerItem { Summary = "Pray", Description = "For this to make an impact" };
+                item.IsHistory = true;
                 HistoryItems.Add(item);
             }
         }

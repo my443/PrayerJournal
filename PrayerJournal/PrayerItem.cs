@@ -14,5 +14,11 @@ namespace PrayerJournal
         public DateOnly CreatedDate{ get; set; }
         public Boolean IsHistory { get; set; }
 
+        public PrayerItem() {
+            Summary = "<<New Item>>";
+            CreatedDate = DateOnly.FromDateTime(DateTime.Today);
+            IsHistory = false;
+        }
+
     }
 }
