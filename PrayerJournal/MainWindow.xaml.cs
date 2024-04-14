@@ -19,22 +19,29 @@ namespace PrayerJournal
     {
         public ObservableCollection<PrayerItem> _currentItems = new ObservableCollection<PrayerItem>();
         public ObservableCollection<PrayerItem> _historyItems = new ObservableCollection<PrayerItem>();
+        public int _currentItemsIndex = 0;
         public MainWindow()
         {
             InitializeComponent();
-            _currentItems = new PrayerItemList().GetCurrentItems();
-            _historyItems = new PrayerItemList().GetHistoryItems();
-            
-            listboxCurrentItems.ItemsSource = _currentItems;
-            listboxHistoryItems.ItemsSource = _historyItems;
-                        
+
+            startupConfiguration();
+
             makeList();
             initialUIConfiguration();
         }
 
+        private void startupConfiguration()
+        {
+            _currentItems = new PrayerItemList().GetCurrentItems();
+            _historyItems = new PrayerItemList().GetHistoryItems();
+
+            listboxCurrentItems.ItemsSource = _currentItems;
+            listboxHistoryItems.ItemsSource = _historyItems;     
+            _currentItemsIndex = listboxCurrentItems.SelectedIndex;
+        }
+
         private void initialUIConfiguration() { 
             listboxCurrentItems.SelectedIndex = 0;
-            listboxCurrentItems.Focus();
             listboxHistoryItems.SelectedIndex = 0;
         }
         private void makeList() { 
@@ -42,7 +49,9 @@ namespace PrayerJournal
             item.Summary = "Pray that this software has an impact";
             item.Description = "I pray this software would have an impact.";
             item.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
-            _currentItems.Add(item);
+            item.IsHistory = false;
+            //listboxCurrentItems.Focus();
+            _currentItems.Add(item);            
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,6 +65,7 @@ namespace PrayerJournal
                 bindingSummary.ElementName = "listboxCurrentItems";
                 bindingDescription.ElementName = "listboxCurrentItems";
                 listboxCurrentItems.Focus();
+
             }
             else
             {
@@ -78,8 +88,30 @@ namespace PrayerJournal
         {
             PrayerItem prayerItem = new PrayerItem();
             _currentItems.Add(prayerItem);
+
+            tabControl.SelectedIndex = 0;
+            
+            //_currentItemsIndex = _currentItems.Count - 1;
+            //listboxCurrentItems.SelectedIndex = _currentItemsIndex;
+            
             listboxCurrentItems.SelectedIndex = _currentItems.Count - 1;
-            listboxCurrentItems.SelectedItem = prayerItem;
+            textboxSummary.Focus();
+            //listboxCurrentItems.SelectedItem = _currentItems[_currentItems.Count - 1];
         }
+
+        /// <summary>
+        /// When a user focuses on the Summary textbox, it selects all of the text. 
+        /// [Card: User Interaction Improvements]
+        /// </summary>
+        private void textboxSummary_GotFocus(object sender, RoutedEventArgs e)
+        {
+            //var txtControl = sender as TextBox;
+            textboxSummary.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                textboxSummary.SelectAll();
+            }));
+            
+        }
+
     }
 }
