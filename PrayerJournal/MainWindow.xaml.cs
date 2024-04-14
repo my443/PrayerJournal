@@ -38,5 +38,16 @@ namespace PrayerJournal
             item.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
             _currentItems.Add(item);
         }
+
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //try { 
+            //MessageBox.Show(tabControl.Items.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+        }
     }
 }
