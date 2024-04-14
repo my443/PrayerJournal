@@ -27,10 +27,17 @@ namespace PrayerJournal
             
             listboxCurrentItems.ItemsSource = _currentItems;
             listboxHistoryItems.ItemsSource = _historyItems;
+
+            initialUIConfiguration();
             
             makeList();
         }
 
+        private void initialUIConfiguration() { 
+            listboxCurrentItems.SelectedIndex = 0;
+            listboxCurrentItems.Focus();
+            listboxHistoryItems.SelectedIndex = 0;
+        }
         private void makeList() { 
             PrayerItem item = new PrayerItem();
             item.Summary = "Pray that this software has an impact";
@@ -41,13 +48,31 @@ namespace PrayerJournal
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //try { 
-            //MessageBox.Show(tabControl.Items.ToString());
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            Binding bindingSummary = new Binding();
+            Binding bindingDescription = new Binding();
+
+            if (tabControl.SelectedIndex == 0)
+            {
+                //bindingSummary.Source = _currentItems;
+                bindingSummary.ElementName = "listboxCurrentItems";
+                bindingDescription.ElementName = "listboxCurrentItems";
+                listboxCurrentItems.Focus();
+            }
+            else
+            {
+                //bindingDescription.Source = _historyItems;
+                bindingSummary.ElementName = "listboxHistoryItems";
+                bindingDescription.ElementName = "listboxHistoryItems";
+                listboxHistoryItems.Focus();
+                //binding.ElementName = "listboxHistoryItems";
+
+            }
+            bindingSummary.Path = new PropertyPath("SelectedItem.Summary");
+            textboxSummary.SetBinding(TextBox.TextProperty, bindingSummary);
+
+            bindingDescription.Path = new PropertyPath("SelectedItem.Description");
+            textboxDescription.SetBinding(TextBox.TextProperty, bindingDescription);
+
         }
     }
 }
