@@ -21,13 +21,13 @@
         </Grid.RowDefinitions>
         <ToolBarTray Grid.ColumnSpan="3" Grid.Column="0">
             <ToolBar>
-                <Button x:Name="Add" BorderBrush="#FF390A0A" Click="Add_Click">
+                <Button x:Name="Add" BorderBrush="#FF390A0A" Click="Add_Click" TabIndex="97" IsTabStop="False">
                     <Label>Add Item</Label>
                 </Button>
-                <Button x:Name="Save" BorderBrush="#FF390A0A">
+                <Button x:Name="Save" BorderBrush="#FF390A0A" TabIndex="98" IsTabStop="False" Click="textboxSummary_SaveItem">
                     <Label>Save Item</Label>
                 </Button>
-                <Button x:Name="Delete" BorderBrush="#FF390A0A">
+                <Button x:Name="Delete" BorderBrush="#FF390A0A" TabIndex="99" IsTabStop="False" Click="Delete_Click">
                     <Label>Delete Item</Label>
                 </Button>
 
@@ -78,7 +78,7 @@
                       Grid.Row="1" IsTabStop="False"/>
         <TextBox x:Name ="textboxSummary" 
                  Text="{Binding ElementName=listboxCurrentItems, Path=SelectedItem.Summary}" 
-                    Grid.Row="1" Grid.Column="2" FontSize="18" GotFocus="textboxSummary_GotFocus"/>
+                    Grid.Row="1" Grid.Column="2" FontSize="18" GotFocus="textboxSummary_GotFocus" KeyDown="textboxSummary_SaveItem"/>
         <TextBox x:Name="textboxDescription"
                  Text="{Binding ElementName=listboxCurrentItems, Path=SelectedItem.Description}"
                  AcceptsReturn="True" 

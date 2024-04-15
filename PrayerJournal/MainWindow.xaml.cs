@@ -113,5 +113,64 @@ namespace PrayerJournal
             
         }
 
+        private void textboxSummary_SaveItem(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter && tabControl.SelectedIndex ==0)
+            {
+                textboxDescription.Focus();
+                textboxSummary.Focus();
+            }
+            else if(e.Key == Key.Enter && tabControl.SelectedIndex == 1)
+            {
+                textboxDescription.Focus();
+                textboxSummary.Focus();
+            }
+        }
+
+        private void textboxSummary_SaveItem(object sender, RoutedEventArgs e)
+        {
+            textboxDescription.Focus();
+            textboxSummary.Focus();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult Result = MessageBox.Show("Do you want to permanently delete this item?", "Deleting Selected Item", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (tabControl.SelectedIndex == 0 && Result == MessageBoxResult.Yes)
+            {
+                int currentIndex = listboxCurrentItems.SelectedIndex;
+                PrayerItem selectedItem = listboxCurrentItems.SelectedItem as PrayerItem;
+                _currentItems.Remove(selectedItem);
+                listboxCurrentItems.SelectedIndex = getReturnIndex(currentIndex);
+               
+            }
+            else if (tabControl.SelectedIndex == 1 && Result == MessageBoxResult.Yes)
+            {
+                int historyIndex = listboxHistoryItems.SelectedIndex;
+                PrayerItem selectedItem = listboxHistoryItems.SelectedItem as PrayerItem;
+                _historyItems.Remove(selectedItem);
+                listboxHistoryItems.SelectedIndex = getReturnIndex(historyIndex);
+            }
+            textboxSummary.Focus();
+        }
+
+        /// <summary>
+        /// Returns a valid index for after an item has been deleted.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private int getReturnIndex(int index) {
+            int returnIndex = 0;
+            if (index <= 0)
+            {
+                returnIndex = 0;
+            }
+
+            if (index > 0)
+            {
+                returnIndex = index - 1;
+            }
+            return returnIndex;
+       }
     }
 }
