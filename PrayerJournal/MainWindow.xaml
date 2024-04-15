@@ -92,10 +92,10 @@
         <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                 <Label>Is A Historical Item</Label>
-                <CheckBox IsChecked="{Binding ElementName=listboxCurrentItems, Path=SelectedItem.IsHistory, Mode=TwoWay}" VerticalAlignment="Center" Checked="CheckBox_Checked"></CheckBox>
+                <CheckBox x:Name="checkboxIsHistory" IsChecked="{Binding ElementName=listboxCurrentItems, Path=SelectedItem.IsHistory, Mode=TwoWay}" VerticalAlignment="Center" Checked="CheckBox_Checked"></CheckBox>
             </StackPanel>
             <Label >Date Created</Label>
-            <DatePicker SelectedDate="{Binding ElementName=listboxCurrentItems, Path=SelectedItem.CreatedDate, Mode=TwoWay}" HorizontalAlignment="Right"/>
+            <DatePicker x:Name="datepickerCreatedDate" SelectedDate="{Binding ElementName=listboxCurrentItems, Path=SelectedItem.CreatedDate, Mode=TwoWay}" HorizontalAlignment="Right"/>
         </StackPanel>
 
     </Grid>

@@ -89,10 +89,10 @@ namespace PrayerJournal
             textboxDescription.SetBinding(TextBox.TextProperty, bindingDescription);
 
             bindingCheckbox.Path = new PropertyPath("SelectedItem.IsHistory");
-            textboxDescription.SetBinding(CheckBox.IsCheckedProperty, bindingCheckbox);
+            checkboxIsHistory.SetBinding(CheckBox.IsCheckedProperty, bindingCheckbox);
 
-            //bindingDescription.Path = new PropertyPath("SelectedItem.CreatedDate");
-            //textboxDescription.SetBinding(DateTime.FromOADate, bindingDate);
+            bindingDate.Path = new PropertyPath("SelectedItem.CreatedDate");
+            datepickerCreatedDate.SetBinding(DatePicker.SelectedDateProperty, bindingDate);
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
