@@ -48,7 +48,7 @@ namespace PrayerJournal
             PrayerItem item = new PrayerItem();
             item.Summary = "Pray that this software has an impact";
             item.Description = "I pray this software would have an impact.";
-            item.CreatedDate = DateOnly.FromDateTime(DateTime.Now);
+            item.CreatedDate = DateTime.Now;
             item.IsHistory = false;
             //listboxCurrentItems.Focus();
             _currentItems.Add(item);            
@@ -58,12 +58,16 @@ namespace PrayerJournal
         {
             Binding bindingSummary = new Binding();
             Binding bindingDescription = new Binding();
+            Binding bindingCheckbox = new Binding();
+            Binding bindingDate = new Binding();
 
             if (tabControl.SelectedIndex == 0)
             {
                 //bindingSummary.Source = _currentItems;
                 bindingSummary.ElementName = "listboxCurrentItems";
                 bindingDescription.ElementName = "listboxCurrentItems";
+                bindingCheckbox.ElementName = "listboxCurrentItems";
+                bindingDate.ElementName = "listboxCurrentItems";
                 listboxCurrentItems.Focus();
 
             }
@@ -72,6 +76,8 @@ namespace PrayerJournal
                 //bindingDescription.Source = _historyItems;
                 bindingSummary.ElementName = "listboxHistoryItems";
                 bindingDescription.ElementName = "listboxHistoryItems";
+                bindingCheckbox.ElementName = "listboxHistoryItems";
+                bindingDate.ElementName = "listboxHistoryItems";
                 listboxHistoryItems.Focus();
                 //binding.ElementName = "listboxHistoryItems";
 
@@ -82,6 +88,11 @@ namespace PrayerJournal
             bindingDescription.Path = new PropertyPath("SelectedItem.Description");
             textboxDescription.SetBinding(TextBox.TextProperty, bindingDescription);
 
+            bindingCheckbox.Path = new PropertyPath("SelectedItem.IsHistory");
+            textboxDescription.SetBinding(CheckBox.IsCheckedProperty, bindingCheckbox);
+
+            //bindingDescription.Path = new PropertyPath("SelectedItem.CreatedDate");
+            //textboxDescription.SetBinding(DateTime.FromOADate, bindingDate);
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -172,5 +183,10 @@ namespace PrayerJournal
             }
             return returnIndex;
        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("button checked");
+        }
     }
 }
