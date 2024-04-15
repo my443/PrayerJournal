@@ -39,7 +39,7 @@ namespace PrayerJournal
             }
             for (int i = 0; i < countForHistory; i++)
             {
-                PrayerItem item = new PrayerItem { Summary = "Pray", Description = "For this to make an impact" };
+                PrayerItem item = new PrayerItem { Summary = "Pray History", Description = "For this to make an impact" };
                 item.IsHistory = true;
                 HistoryItems.Add(item);
             }
