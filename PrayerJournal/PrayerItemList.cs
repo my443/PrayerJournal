@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace PrayerJournal
     {
         private ObservableCollection<PrayerItem> CurrentItems { get; set; }
         private ObservableCollection<PrayerItem> HistoryItems {  get; set; }
+        DbContext db = new DatabaseContext();
 
         public PrayerItemList() { 
             CurrentItems = new ObservableCollection<PrayerItem>();

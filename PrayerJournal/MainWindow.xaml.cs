@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,7 @@ namespace PrayerJournal
         public ObservableCollection<PrayerItem> _currentItems = new ObservableCollection<PrayerItem>();
         public ObservableCollection<PrayerItem> _historyItems = new ObservableCollection<PrayerItem>();
         public int _currentItemsIndex = 0;
+        DbContext db = new DatabaseContext();
         public MainWindow()
         {
             InitializeComponent();
@@ -109,6 +111,9 @@ namespace PrayerJournal
 
             listboxCurrentItems.SelectedIndex = _currentItems.Count - 1;
             textboxSummary.Focus();
+
+            db.Add(prayerItem);
+            db.SaveChanges();
             //listboxCurrentItems.SelectedItem = _currentItems[_currentItems.Count - 1];
         }
 
@@ -130,6 +135,9 @@ namespace PrayerJournal
         {
             if (e.Key == Key.Enter && tabControl.SelectedIndex == 0)
             {
+                //PrayerItem item = (PrayerItem)listboxCurrentItems.SelectedItem;
+                //db.Update(item);
+                //db.SaveChanges();
                 textboxDescription.Focus();
                 textboxSummary.Focus();
             }

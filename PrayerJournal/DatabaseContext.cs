@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -10,15 +11,18 @@ namespace PrayerJournal
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<PrayerItem> Blogs { get; set; }
+        public DbSet<PrayerItem> PrayerItems { get; set; }
 
         public string DbPath { get; }
 
         public DatabaseContext()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "prayer_journal.db");
+            //var folder = Environment.SpecialFolder.LocalApplicationData;
+            //var path = Environment.GetFolderPath(folder);
+            
+            //DbPath = System.IO.Path.Join(path, "prayer_journal.db");
+
+            DbPath = @"c:\temp\prayer_journal.db";
             
         }
 

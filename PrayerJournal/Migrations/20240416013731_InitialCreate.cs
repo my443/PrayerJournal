@@ -12,7 +12,7 @@ namespace PrayerJournal.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Blogs",
+                name: "PrayerItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -24,7 +24,7 @@ namespace PrayerJournal.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Blogs", x => x.Id);
+                    table.PrimaryKey("PK_PrayerItems", x => x.Id);
                 });
         }
 
@@ -32,7 +32,7 @@ namespace PrayerJournal.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Blogs");
+                name: "PrayerItems");
         }
     }
 }

@@ -11,8 +11,8 @@ using PrayerJournal;
 namespace PrayerJournal.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240415105646_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240416014627_MakeDescriptionNullable")]
+    partial class MakeDescriptionNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,6 @@ namespace PrayerJournal.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsHistory")
@@ -42,7 +41,7 @@ namespace PrayerJournal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("PrayerItems");
                 });
 #pragma warning restore 612, 618
         }
