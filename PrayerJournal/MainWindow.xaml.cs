@@ -112,7 +112,7 @@ namespace PrayerJournal
             listboxCurrentItems.SelectedIndex = _currentItems.Count - 1;
             textboxSummary.Focus();
 
-            db.PrayerItems.Add(prayerItem);
+            db.PrayerItems.Attach(prayerItem);
             db.SaveChanges();
             //listboxCurrentItems.SelectedItem = _currentItems[_currentItems.Count - 1];
         }
