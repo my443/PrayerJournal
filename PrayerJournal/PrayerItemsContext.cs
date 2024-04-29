@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace PrayerJournal
 {
-    public class DatabaseContext : DbContext
+    public class PrayerItemsContext : DbContext
     {
         public DbSet<PrayerItem> PrayerItems { get; set; }
 
         public string DbPath { get; }
 
-        public DatabaseContext()
+        public PrayerItemsContext()
         {
             //var folder = Environment.SpecialFolder.LocalApplicationData;
             //var path = Environment.GetFolderPath(folder);

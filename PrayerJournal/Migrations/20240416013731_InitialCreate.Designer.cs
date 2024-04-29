@@ -10,7 +10,7 @@ using PrayerJournal;
 
 namespace PrayerJournal.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(PrayerItemsContext))]
     [Migration("20240416013731_InitialCreate")]
     partial class InitialCreate
     {

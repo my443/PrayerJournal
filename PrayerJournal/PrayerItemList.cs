@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrayerJournal
 {
@@ -12,15 +7,23 @@ namespace PrayerJournal
     {
         private ObservableCollection<PrayerItem> CurrentItems { get; set; }
         private ObservableCollection<PrayerItem> HistoryItems {  get; set; }
-        DbContext db = new DatabaseContext();
+        PrayerItemsContext db = new PrayerItemsContext();
 
         public PrayerItemList() { 
-            CurrentItems = new ObservableCollection<PrayerItem>();
+            
             HistoryItems = new ObservableCollection<PrayerItem>();
+
+            var items = db.PrayerItems.Where(Item => Item.IsHistory == false).ToList();
+            CurrentItems = new ObservableCollection<PrayerItem>(items);
+            //using (PrayerItemsContext context = new PrayerItemsContext())
+            //{
+            //    var items = context.PrayerItems.ToList();
+            //}
             generateSample(10, 5);
         }
         public ObservableCollection<PrayerItem> GetCurrentItems()
         {
+            
             return CurrentItems;
         }
 

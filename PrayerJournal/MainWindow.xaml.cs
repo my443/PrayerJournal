@@ -21,7 +21,7 @@ namespace PrayerJournal
         public ObservableCollection<PrayerItem> _currentItems = new ObservableCollection<PrayerItem>();
         public ObservableCollection<PrayerItem> _historyItems = new ObservableCollection<PrayerItem>();
         public int _currentItemsIndex = 0;
-        DbContext db = new DatabaseContext();
+        DbContext db = new PrayerItemsContext();
         public MainWindow()
         {
             InitializeComponent();

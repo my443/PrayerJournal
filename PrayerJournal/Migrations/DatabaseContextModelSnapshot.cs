@@ -9,7 +9,7 @@ using PrayerJournal;
 
 namespace PrayerJournal.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(PrayerItemsContext))]
     partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
