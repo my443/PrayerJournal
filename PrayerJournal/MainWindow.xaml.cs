@@ -156,7 +156,7 @@ namespace PrayerJournal
             textboxDescription.Focus();
             textboxSummary.Focus();
             saveCurrentlySelectedItem();
-            MessageBox.Show("saved");
+
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -167,6 +167,7 @@ namespace PrayerJournal
                 int currentIndex = listboxCurrentItems.SelectedIndex;
                 PrayerItem selectedItem = listboxCurrentItems.SelectedItem as PrayerItem;
                 _currentItems.Remove(selectedItem);
+                db.Remove(selectedItem);
                 listboxCurrentItems.SelectedIndex = getReturnIndexAfterItemDeleted(currentIndex);
 
             }
@@ -175,6 +176,7 @@ namespace PrayerJournal
                 int historyIndex = listboxHistoryItems.SelectedIndex;
                 PrayerItem selectedItem = listboxHistoryItems.SelectedItem as PrayerItem;
                 _historyItems.Remove(selectedItem);
+                db.Remove(selectedItem);
                 listboxHistoryItems.SelectedIndex = getReturnIndexAfterItemDeleted(historyIndex);
             }
             textboxSummary.Focus();
@@ -200,7 +202,7 @@ namespace PrayerJournal
             return returnIndex;
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void History_CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             // This has to be done so that the messagebox doesn't pop up when the app is initialized.
             MessageBoxResult Result = MessageBoxResult.No;
@@ -217,6 +219,9 @@ namespace PrayerJournal
                 PrayerItem currentItem = getCurrentlySelectedItem();
                 _currentItems.Remove(currentItem);
                 _historyItems.Add(currentItem);
+                currentItem.IsHistory = true;
+                db.Update(currentItem);
+                db.SaveChanges();
                 listboxCurrentItems.SelectedIndex = getReturnIndexAfterItemDeleted(currentIndex);
             }
         }
@@ -250,6 +255,9 @@ namespace PrayerJournal
                 PrayerItem currentItem = (PrayerItem)listboxHistoryItems.SelectedItem;
                 _historyItems.Remove(currentItem);
                 _currentItems.Add(currentItem);
+                currentItem.IsHistory = false;
+                db.Update(currentItem);
+                db.SaveChanges();
                 listboxHistoryItems.SelectedIndex = getReturnIndexAfterItemDeleted(historyIndex);
             }
         }

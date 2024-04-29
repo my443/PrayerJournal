@@ -13,8 +13,10 @@ namespace PrayerJournal
             
             HistoryItems = new ObservableCollection<PrayerItem>();
 
-            var items = db.PrayerItems.Where(Item => Item.IsHistory == false).ToList();
-            CurrentItems = new ObservableCollection<PrayerItem>(items);
+            var currentItems = db.PrayerItems.Where(Item => Item.IsHistory == false).ToList();
+            var historyItems = db.PrayerItems.Where(Item => Item.IsHistory == true).ToList();
+            CurrentItems = new ObservableCollection<PrayerItem>(currentItems);
+            HistoryItems = new ObservableCollection<PrayerItem>(historyItems);
             //using (PrayerItemsContext context = new PrayerItemsContext())
             //{
             //    var items = context.PrayerItems.ToList();
