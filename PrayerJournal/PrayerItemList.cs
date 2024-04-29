@@ -19,7 +19,7 @@ namespace PrayerJournal
             //{
             //    var items = context.PrayerItems.ToList();
             //}
-            generateSample(10, 5);
+            //generateSample(10, 5);
         }
         public ObservableCollection<PrayerItem> GetCurrentItems()
         {

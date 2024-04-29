@@ -21,14 +21,14 @@ namespace PrayerJournal
         public ObservableCollection<PrayerItem> _currentItems = new ObservableCollection<PrayerItem>();
         public ObservableCollection<PrayerItem> _historyItems = new ObservableCollection<PrayerItem>();
         public int _currentItemsIndex = 0;
-        DbContext db = new PrayerItemsContext();
+        PrayerItemsContext db = new PrayerItemsContext();
         public MainWindow()
         {
             InitializeComponent();
 
             startupConfiguration();
 
-            makeList();
+            //makeList();                   // Used for initial testing.
             initialUIConfiguration();
         }
 
@@ -112,7 +112,7 @@ namespace PrayerJournal
             listboxCurrentItems.SelectedIndex = _currentItems.Count - 1;
             textboxSummary.Focus();
 
-            db.Add(prayerItem);
+            db.PrayerItems.Add(prayerItem);
             db.SaveChanges();
             //listboxCurrentItems.SelectedItem = _currentItems[_currentItems.Count - 1];
         }
@@ -128,6 +128,7 @@ namespace PrayerJournal
             {
                 textboxSummary.SelectAll();
             }));
+            saveCurrentlySelectedItem();
 
         }
 
@@ -140,11 +141,13 @@ namespace PrayerJournal
                 //db.SaveChanges();
                 textboxDescription.Focus();
                 textboxSummary.Focus();
+                saveCurrentlySelectedItem();
             }
             else if (e.Key == Key.Enter && tabControl.SelectedIndex == 1)
             {
                 textboxDescription.Focus();
                 textboxSummary.Focus();
+                saveCurrentlySelectedItem();
             }
         }
 
@@ -152,6 +155,8 @@ namespace PrayerJournal
         {
             textboxDescription.Focus();
             textboxSummary.Focus();
+            saveCurrentlySelectedItem();
+            MessageBox.Show("saved");
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -162,7 +167,7 @@ namespace PrayerJournal
                 int currentIndex = listboxCurrentItems.SelectedIndex;
                 PrayerItem selectedItem = listboxCurrentItems.SelectedItem as PrayerItem;
                 _currentItems.Remove(selectedItem);
-                listboxCurrentItems.SelectedIndex = getReturnIndex(currentIndex);
+                listboxCurrentItems.SelectedIndex = getReturnIndexAfterItemDeleted(currentIndex);
 
             }
             else if (tabControl.SelectedIndex == 1 && Result == MessageBoxResult.Yes)
@@ -170,7 +175,7 @@ namespace PrayerJournal
                 int historyIndex = listboxHistoryItems.SelectedIndex;
                 PrayerItem selectedItem = listboxHistoryItems.SelectedItem as PrayerItem;
                 _historyItems.Remove(selectedItem);
-                listboxHistoryItems.SelectedIndex = getReturnIndex(historyIndex);
+                listboxHistoryItems.SelectedIndex = getReturnIndexAfterItemDeleted(historyIndex);
             }
             textboxSummary.Focus();
         }
@@ -180,7 +185,7 @@ namespace PrayerJournal
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        private int getReturnIndex(int index)
+        private int getReturnIndexAfterItemDeleted(int index)
         {
             int returnIndex = 0;
             if (index <= 0)
@@ -208,14 +213,26 @@ namespace PrayerJournal
             // Move the item
             if (tabControl.SelectedIndex == 0 && Result == MessageBoxResult.Yes)
             {
-                int currentIndex = listboxCurrentItems.SelectedIndex;
-                PrayerItem currentItem = (PrayerItem)listboxCurrentItems.SelectedItem;
+                int currentIndex = listboxHistoryItems.SelectedIndex;
+                PrayerItem currentItem = getCurrentlySelectedItem();
                 _currentItems.Remove(currentItem);
                 _historyItems.Add(currentItem);
-                listboxCurrentItems.SelectedIndex = getReturnIndex(currentIndex);
+                listboxCurrentItems.SelectedIndex = getReturnIndexAfterItemDeleted(currentIndex);
             }
         }
 
+        private PrayerItem getCurrentlySelectedItem()
+        {
+            PrayerItem currentItem = (PrayerItem)listboxCurrentItems.SelectedItem;
+            return currentItem;
+        }
+
+        private void saveCurrentlySelectedItem()
+        {
+            PrayerItem item = getCurrentlySelectedItem();
+            db.Update(item);
+            db.SaveChanges();
+        }
 
         private void checkboxIsHistory_Unchecked(object sender, RoutedEventArgs e)
         {
@@ -233,7 +250,7 @@ namespace PrayerJournal
                 PrayerItem currentItem = (PrayerItem)listboxHistoryItems.SelectedItem;
                 _historyItems.Remove(currentItem);
                 _currentItems.Add(currentItem);
-                listboxHistoryItems.SelectedIndex = getReturnIndex(historyIndex);
+                listboxHistoryItems.SelectedIndex = getReturnIndexAfterItemDeleted(historyIndex);
             }
         }
     }
