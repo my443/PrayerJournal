@@ -25,10 +25,7 @@ namespace PrayerJournal
         public MainWindow()
         {
             InitializeComponent();
-
             startupConfiguration();
-
-            //makeList();                   // Used for initial testing.
             initialUIConfiguration();
         }
 
@@ -39,6 +36,7 @@ namespace PrayerJournal
 
             listboxCurrentItems.ItemsSource = _currentItems;
             listboxHistoryItems.ItemsSource = _historyItems;
+            
             _currentItemsIndex = listboxCurrentItems.SelectedIndex;
         }
 
@@ -46,16 +44,6 @@ namespace PrayerJournal
         {
             listboxCurrentItems.SelectedIndex = 0;
             listboxHistoryItems.SelectedIndex = 0;
-        }
-        private void makeList()
-        {
-            PrayerItem item = new PrayerItem();
-            item.Summary = "Pray that this software has an impact";
-            item.Description = "I pray this software would have an impact.";
-            item.CreatedDate = DateTime.Now;
-            item.IsHistory = false;
-            //listboxCurrentItems.Focus();
-            _currentItems.Add(item);
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -73,7 +61,6 @@ namespace PrayerJournal
                 bindingCheckbox.ElementName = "listboxCurrentItems";
                 bindingDate.ElementName = "listboxCurrentItems";
                 listboxCurrentItems.Focus();
-
             }
             else
             {
@@ -99,7 +86,7 @@ namespace PrayerJournal
             datepickerCreatedDate.SetBinding(DatePicker.SelectedDateProperty, bindingDate);
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private void Add_PrayerItem(object sender, RoutedEventArgs e)
         {
             PrayerItem prayerItem = new PrayerItem();
             _currentItems.Add(prayerItem);
@@ -151,7 +138,7 @@ namespace PrayerJournal
             }
         }
 
-        private void textboxSummary_SaveItem(object sender, RoutedEventArgs e)
+        private void Save_PrayerItem(object sender, RoutedEventArgs e)
         {
             textboxDescription.Focus();
             textboxSummary.Focus();
@@ -159,7 +146,7 @@ namespace PrayerJournal
 
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private void Delete_PrayerItem(object sender, RoutedEventArgs e)
         {
             MessageBoxResult Result = MessageBox.Show("Do you want to permanently delete this item?", "Deleting Selected Item", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (tabControl.SelectedIndex == 0 && Result == MessageBoxResult.Yes)
@@ -260,6 +247,11 @@ namespace PrayerJournal
                 db.SaveChanges();
                 listboxHistoryItems.SelectedIndex = getReturnIndexAfterItemDeleted(historyIndex);
             }
+        }
+
+        private void listboxCurrentItems_GotFocus(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }

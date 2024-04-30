@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="Auto" />
@@ -19,30 +18,47 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ToolBarTray Grid.ColumnSpan="3" Grid.Column="0">
-            <ToolBar>
-                <Button x:Name="Add" BorderBrush="#FF390A0A" Click="Add_Click" TabIndex="97" IsTabStop="False">
-                    <Label>Add Item</Label>
-                </Button>
-                <Button x:Name="Save" BorderBrush="#FF390A0A" TabIndex="98" IsTabStop="False" Click="textboxSummary_SaveItem">
-                    <Label>Save Item</Label>
-                </Button>
-                <Button x:Name="Delete" BorderBrush="#FF390A0A" TabIndex="99" IsTabStop="False" Click="Delete_Click">
-                    <Label>Delete Item</Label>
-                </Button>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
+            <DockPanel Grid.Row="0">
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Header="_File">
+                        <MenuItem Header="_Open"/>
+                        <MenuItem Header="_Close"/>
+                        <MenuItem Header="_Save"/>
+                    </MenuItem>
+                    <MenuItem Header="Prayer Item">
+                        <MenuItem Header="_Add Item" Click="Add_PrayerItem"/>
+                        <MenuItem Header="_Save Item" Click="Save_PrayerItem"/>
+                        <MenuItem Header="_Delete Item" Click="Delete_PrayerItem"/>
+                    </MenuItem>
+                </Menu>
+                <StackPanel></StackPanel>
+            </DockPanel>
+            <ToolBarTray Grid.ColumnSpan="3" Grid.Column="0">
+                <ToolBar>
+                    <Button x:Name="Add" BorderBrush="#FF390A0A" Click="Add_PrayerItem" TabIndex="97" IsTabStop="False">
+                        <Label>Add Item</Label>
+                    </Button>
+                    <Button x:Name="Save" BorderBrush="#FF390A0A" TabIndex="98" IsTabStop="False" Click="Save_PrayerItem">
+                        <Label>Save Item</Label>
+                    </Button>
+                    <Button x:Name="Delete" BorderBrush="#FF390A0A" TabIndex="99" IsTabStop="False" Click="Delete_PrayerItem">
+                        <Label>Delete Item</Label>
+                    </Button>
 
-            </ToolBar>
-        </ToolBarTray>
+                </ToolBar>
+            </ToolBarTray>
+        </StackPanel>
         <TabControl x:Name="tabControl" Grid.Column="0" Grid.RowSpan="3" Grid.Row="1" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="Current">
-                <ListBox x:Name="listboxCurrentItems"  Width="801" >
+                <ListBox x:Name="listboxCurrentItems"  Width="801" GotFocus="listboxCurrentItems_GotFocus" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
                                 <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                    <MultiBinding StringFormat="{}{0}">
                                         <Binding Path="Summary" />
-                                        <Binding Path="CreatedDate" />
+                                        <!--<Binding Path="CreatedDate" />-->
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
@@ -78,7 +94,7 @@
                       Grid.Row="1" IsTabStop="False"/>
         <TextBox x:Name ="textboxSummary" 
                  Text="{Binding ElementName=listboxCurrentItems, Path=SelectedItem.Summary}" 
-                    Grid.Row="1" Grid.Column="2" FontSize="18" GotFocus="textboxSummary_GotFocus" KeyDown="textboxSummary_SaveItem"/>
+                    Grid.Row="1" Grid.Column="2" FontSize="18" GotFocus="textboxSummary_GotFocus" KeyDown="Save_PrayerItem"/>
         <TextBox x:Name="textboxDescription"
                  Text="{Binding ElementName=listboxCurrentItems, Path=SelectedItem.Description}"
                  AcceptsReturn="True" 
